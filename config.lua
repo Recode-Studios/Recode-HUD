@@ -4,7 +4,7 @@ Config.Inventory = 'qs' -- 'ox' (ox_inventory), 'qs' (qs-inventory), 'qb' (qb-in
 
 
 Config.SettingsCommand = "hud" -- Command to open HUD settings
-Config.AlwaysMap = false -- true: map always visible, false: map visible only in vehicle
+Config.AlwaysMap = true -- true: map always visible, false: map visible only in vehicle
 
 Config.EnableHealth = true
 Config.EnableArmor = true

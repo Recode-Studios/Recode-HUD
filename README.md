@@ -1,4 +1,3 @@
-
 # 🚀 Advanced FiveM HUD
 
 A modern, clean, and optimized HUD for FiveM servers.
@@ -40,9 +39,9 @@ Designed to provide all essential player information without clutter, focusing o
 
 ## 📸 Preview
 
-![HUD Preview](https://github.com/user-attachments/assets/098c0598-7c60-4c14-a235-1933ba89932a)
+![HUD Preview](https://github.com/user-attachments/assets/41e232cd-4b45-48ba-9b46-49e3b2c7219b)
 
-![HUD Preview 2](https://github.com/user-attachments/assets/9900fd8e-c4b0-4e20-9fc6-01711074f6fc)
+![HUD Preview 2](https://github.com/user-attachments/assets/d0ac83a0-5c6e-49b2-b2dc-9fd79b79e6fa)
 
 ---
 
@@ -103,7 +102,7 @@ If you find any bugs or issues, feel free to contact me on Discord.
 
 For support or custom requests:
 
-👉 Discord: `[Discord](https://discord.gg/sokac)`
+👉 Discord: `Harun15_`
 
 ---
 

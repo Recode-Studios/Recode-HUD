@@ -1,5 +1,8 @@
+// Overall HUD size (1 = original, lower = smaller)
+const HUD_SCALE = 0.85;
+
 function updateScaleFactor() {
-  const scaleFactor = Math.min(
+  const scaleFactor = HUD_SCALE * Math.min(
     window.innerWidth / 1920,
     window.innerHeight / 1080
   );
@@ -190,7 +193,7 @@ function updateStamina(staminaPercent) {
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     updateArmor(0);
     updateHealth(0);
     updateHunger(0);
@@ -230,7 +233,7 @@ function updateWeaponAmmo(weaponAmmo, weaponMaxAmmo, hasWeapon, weaponHash, weap
       const weaponImagePath = getWeaponImagePath(weaponName);
       if (weaponImagePath) {
         weaponIcon.src = weaponImagePath;
-        weaponIcon.onerror = function() {
+        weaponIcon.onerror = function () {
           weaponIcon.src = 'images/pistol-icon-1.png';
         };
       } else {
@@ -298,7 +301,7 @@ function updateHUDData(data) {
   }
 }
 
-window.addEventListener('message', function(event) {
+window.addEventListener('message', function (event) {
   const data = event.data;
 
   if (data.type === 'updateHUD') {
@@ -335,7 +338,7 @@ window.addEventListener('message', function(event) {
         if (isSecondTheme) {
           locationArea.style.transform = 'translateY(-80px)';
         } else {
-          locationArea.style.transform = 'translateY(-200px)';
+          locationArea.style.transform = 'translateY(calc(-215px / var(--scale-factor)))';
         }
         locationArea.style.transition = 'transform 0.3s ease-in-out';
       } else {
@@ -449,33 +452,33 @@ window.addEventListener('message', function(event) {
 
       resetAndAnimateFuel(clampedPercent);
     }
-    } else if (data.type === 'setHUDVisible') {
-      if (data.visible) {
-        document.body.style.display = 'block';
-      } else {
-        document.body.style.display = 'none';
-      }
-    } else if (data.type === 'updateVisibility') {
-      const keys = ['health', 'armor', 'hunger', 'thirst', 'stamina', 'location', 'job', 'wallet', 'bank', 'voice'];
-      keys.forEach(key => {
-        const saved = localStorage.getItem('hud_visible_' + key);
-        let isVisible = data[key];
-        if (saved !== null) {
-          isVisible = saved === 'true';
-        }
-        updateElementVisibility(key, isVisible);
-
-        const group = document.querySelector(`.toggle-group[data-setting="${key}"]`);
-        if (group) {
-          const buttons = group.querySelectorAll('.toggle-btn');
-          buttons.forEach(btn => {
-            const val = btn.getAttribute('data-value') === 'true';
-            if (val === isVisible) btn.classList.add('active');
-            else btn.classList.remove('active');
-          });
-        }
-      });
+  } else if (data.type === 'setHUDVisible') {
+    if (data.visible) {
+      document.body.style.display = 'block';
+    } else {
+      document.body.style.display = 'none';
     }
+  } else if (data.type === 'updateVisibility') {
+    const keys = ['health', 'armor', 'hunger', 'thirst', 'stamina', 'location', 'job', 'wallet', 'bank', 'voice'];
+    keys.forEach(key => {
+      const saved = localStorage.getItem('hud_visible_' + key);
+      let isVisible = data[key];
+      if (saved !== null) {
+        isVisible = saved === 'true';
+      }
+      updateElementVisibility(key, isVisible);
+
+      const group = document.querySelector(`.toggle-group[data-setting="${key}"]`);
+      if (group) {
+        const buttons = group.querySelectorAll('.toggle-btn');
+        buttons.forEach(btn => {
+          const val = btn.getAttribute('data-value') === 'true';
+          if (val === isVisible) btn.classList.add('active');
+          else btn.classList.remove('active');
+        });
+      }
+    });
+  }
 });
 
 let currentSpeedPercent = 0;
@@ -743,7 +746,7 @@ function initializeCarHUD() {
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     initializeCarHUD();
 
     setupDashboard();
@@ -760,7 +763,7 @@ function setupDashboard() {
   const escBtn = document.getElementById('esc-button');
 
   if (closeBtn) {
-    closeBtn.addEventListener('click', function() {
+    closeBtn.addEventListener('click', function () {
       if (dashboard) {
         dashboard.classList.remove('show');
         fetch(`https://${window.GetParentResourceName ? window.GetParentResourceName() : 'harunhud'}/closeDashboard`, {
@@ -775,7 +778,7 @@ function setupDashboard() {
   }
 
   if (escBtn) {
-    escBtn.addEventListener('click', function() {
+    escBtn.addEventListener('click', function () {
       if (dashboard) {
         dashboard.classList.remove('show');
         fetch(`https://${window.GetParentResourceName ? window.GetParentResourceName() : 'harunhud'}/closeDashboard`, {
@@ -789,7 +792,7 @@ function setupDashboard() {
     });
   }
 
-  document.addEventListener('keydown', function(event) {
+  document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && dashboard && dashboard.classList.contains('show')) {
       dashboard.classList.remove('show');
       fetch(`https://${window.GetParentResourceName ? window.GetParentResourceName() : 'harunhud'}/closeDashboard`, {
@@ -1029,24 +1032,24 @@ function setupDashboard() {
       colorCode.textContent = initialColor.toUpperCase();
       colorPicker.value = initialColor;
 
-      colorBox.addEventListener('click', function() {
+      colorBox.addEventListener('click', function () {
         colorPicker.click();
       });
 
-      colorPicker.addEventListener('input', function(e) {
+      colorPicker.addEventListener('input', function (e) {
         const selectedColor = e.target.value;
         colorBox.style.backgroundColor = selectedColor;
         colorCode.textContent = selectedColor.toUpperCase();
       });
 
-      colorPicker.addEventListener('change', function(e) {
+      colorPicker.addEventListener('change', function (e) {
         const selectedColor = e.target.value;
         colorBox.style.backgroundColor = selectedColor;
         colorCode.textContent = selectedColor.toUpperCase();
       });
 
       if (saveBtn && colorType === 'primary') {
-        saveBtn.addEventListener('click', function(e) {
+        saveBtn.addEventListener('click', function (e) {
           e.preventDefault();
           e.stopPropagation();
           const selectedColor = colorPicker.value;
@@ -1065,7 +1068,7 @@ function setupDashboard() {
     const settingRow = toggleGroup.closest('.setting-row');
 
     toggleButtons.forEach(button => {
-      button.addEventListener('click', function() {
+      button.addEventListener('click', function () {
         toggleButtons.forEach(btn => {
           btn.classList.remove('active');
           btn.style.backgroundColor = '';
@@ -1249,7 +1252,7 @@ function setupDashboard() {
     }
 
     buttons.forEach(btn => {
-      btn.addEventListener('click', function() {
+      btn.addEventListener('click', function () {
         const isVisible = this.getAttribute('data-value') === 'true';
 
         buttons.forEach(b => b.classList.remove('active'));

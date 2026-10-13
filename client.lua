@@ -39,17 +39,29 @@ local function UpdateStatus()
     if GetResourceState('esx_status') == 'started' then
         TriggerEvent('esx_status:getStatus', 'hunger', function(status)
             if status then
-                hunger = math.floor(status.percent or 100)
+                if status.getPercent then
+                    hunger = math.floor(status.getPercent())
+                elseif status.val then
+                    hunger = math.floor((status.val / 1000000) * 100)
+                elseif status.percent then
+                    hunger = math.floor(status.percent)
+                end
             end
         end)
 
         TriggerEvent('esx_status:getStatus', 'thirst', function(status)
             if status then
-                thirst = math.floor(status.percent or 100)
+                if status.getPercent then
+                    thirst = math.floor(status.getPercent())
+                elseif status.val then
+                    thirst = math.floor((status.val / 1000000) * 100)
+                elseif status.percent then
+                    thirst = math.floor(status.percent)
+                end
             end
         end)
     else
-        local PlayerData = Config.Framework == 'esx' and Core.GetPlayerData() or Core.Functions.GetPlayerData()
+        local PlayerData = Config.Framework == 'esx' and (Core and Core.GetPlayerData()) or (Core and Core.Functions and Core.Functions.GetPlayerData())
         if PlayerData and PlayerData.status then
             for i=1, #PlayerData.status, 1 do
                 if PlayerData.status[i].name == 'hunger' then
@@ -414,10 +426,8 @@ Citizen.CreateThread(function()
         local now = GetGameTimer()
         local playerPed = PlayerPedId()
         
-        -- Update status for QB/Qbox framework
-        if Config.Framework ~= 'esx' then
-            UpdateStatus()
-        end
+        -- Update status
+        UpdateStatus()
 
         local updateData = {}
         local shouldSend = false
@@ -703,5 +713,6 @@ end)
 exports('ToggleHud', function(state)
     TriggerEvent('harunhud:toggleHud', state)
 end)
+
 
 

@@ -11,6 +11,7 @@ files {
     'index.html',
     'global.css',
     'global.js',
+    'layout.js',
     'images/*.png',
     'images/*.svg',
     'weapons/*.png'
