@@ -39,9 +39,10 @@ Designed to provide all essential player information without clutter, focusing o
 
 ## 📸 Preview
 
-![HUD Preview](https://github.com/user-attachments/assets/41e232cd-4b45-48ba-9b46-49e3b2c7219b)
 
-![HUD Preview 2](https://github.com/user-attachments/assets/d0ac83a0-5c6e-49b2-b2dc-9fd79b79e6fa)
+![HUD Preview](https://github.com/user-attachments/assets/fcf5a416-d490-4320-bc8d-103d027d1554)
+
+![HUD Preview 2](https://github.com/user-attachments/assets/640fc192-bec8-4202-910e-d9c7830ff66c)
 
 ---
 
