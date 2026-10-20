@@ -1,0 +1,48 @@
+/* Sits just left of the engine icon, on the same row. It is an <svg> on purpose:
+   global.js recolours every .car-status-item img white. */
+.car-status-engine {
+  position: relative;
+}
+
+.car-belt-icon {
+  position: absolute;
+  right: 100%;
+  top: 6px;
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  color: #ff2d2d;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .7));
+  transform-origin: center;
+}
+
+/* unbuckled: fades in slowly, then keeps blinking */
+.car-belt-icon.is-off {
+  animation:
+    belt-appear 1.4s ease-out both,
+    belt-blink 1s ease-in-out 1.4s infinite;
+}
+
+@keyframes belt-appear {
+  0%   { opacity: 0; transform: scale(.6); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.car-belt-icon.is-on {
+  color: #22e06b;
+  transform-origin: center;
+  animation: belt-confirm 2.2s ease forwards;
+}
+
+@keyframes belt-confirm {
+  0%   { opacity: 0; transform: scale(.6); }
+  20%  { opacity: 1; transform: scale(1.15); }
+  35%  { transform: scale(1); }
+  70%  { opacity: 1; }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+@keyframes belt-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .15; }
+}
